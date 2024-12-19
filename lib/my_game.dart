@@ -31,6 +31,7 @@ class _MyGameState extends State<MyGame> {
   @override
   Widget build(BuildContext context) {
     return BonfireWidget(
+      showCollisionArea: true,
       playerControllers: [_keyboard],
       cameraConfig: _cameraConfig,
       player: DwarfWarrior(
