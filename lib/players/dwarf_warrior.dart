@@ -8,11 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:toastification/toastification.dart';
 
-class DwarfWarrior extends PlatformPlayer with HandleForces {
-  static const _size = Globals.tileSize;
+class DwarfWarrior extends PlatformPlayer
+    with HandleForces, MouseEventListener {
+  static const _size = Globals.tileSize * 1.5;
 
-  DwarfWarrior({required super.position})
-      : super(
+  final void Function() toggleDevMode;
+
+  DwarfWarrior({
+    required super.position,
+    required this.toggleDevMode,
+  }) : super(
           speed: 100,
           countJumps: 2,
           size: Vector2.all(_size),
@@ -89,4 +94,7 @@ class DwarfWarrior extends PlatformPlayer with HandleForces {
     add(size.sizeToHitbox());
     return super.onLoad();
   }
+
+  @override
+  void onMouseTap(MouseButton button) => toggleDevMode();
 }

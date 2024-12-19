@@ -57,10 +57,22 @@ class _MyGameState extends State<MyGame> {
     debugPrint('My game is ready');
   }
 
+  bool _devMode = false;
+  Key _gameKey = GlobalKey();
+
+  void _toggleDevMode() => setState(
+        () {
+          _devMode = !_devMode;
+          _gameKey = UniqueKey();
+        },
+      );
+
   @override
   Widget build(BuildContext context) {
     return BonfireWidget(
-      showCollisionArea: false,
+      key: _gameKey,
+      debugMode: _devMode,
+      showCollisionArea: _devMode,
       playerControllers: [
         Keyboard(
           config: KeyboardConfig(
@@ -116,6 +128,7 @@ class _MyGameState extends State<MyGame> {
       cameraConfig: _cameraConfig,
       player: DwarfWarrior(
         position: Vector2.all(20),
+        toggleDevMode: _toggleDevMode,
       ),
       onReady: _onReady,
       map: WorldMapBySpritefusion(WorldMapReader.fromAsset(Globals.map),
