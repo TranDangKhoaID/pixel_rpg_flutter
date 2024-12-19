@@ -6,14 +6,32 @@ class SpriteAnimations {
 
   static const _dwarfWarriorIdle = 'dwarf_warrior/idle';
   static const _dwarfWarriorWalk = 'dwarf_warrior/walk';
+  static const _alchemist = 'alchemist';
+  static const _blacksmith = 'blacksmith';
 
   static const _dwarfWarriorIdleCount = 3;
   static const _dwarfWarriorWalkCount = 6;
+  static const _alchemistCount = 8;
+  static const _blacksmithCount = 7;
 
   static Future<SpriteAnimation> get dwarfWarriorIdle async {
     return _spriteAnimation(
       count: _dwarfWarriorIdleCount,
       path: _dwarfWarriorIdle,
+    );
+  }
+
+  static Future<SpriteAnimation> get alchemist async {
+    return _spriteAnimation(
+      count: _alchemistCount,
+      path: _alchemist,
+    );
+  }
+
+  static Future<SpriteAnimation> get blacksmith async {
+    return _spriteAnimation(
+      count: _blacksmithCount,
+      path: _blacksmith,
     );
   }
 
