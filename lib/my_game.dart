@@ -39,6 +39,7 @@ class _MyGameState extends State<MyGame> {
           config: KeyboardConfig(
             acceptedKeys: [
               LogicalKeyboardKey.space,
+              LogicalKeyboardKey.keyP,
             ],
             directionalKeys: [
               KeyboardDirectionalKeys.arrows(),
