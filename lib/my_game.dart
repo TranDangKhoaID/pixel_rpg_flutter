@@ -6,6 +6,13 @@ import 'package:cool_game/players/dwarf_warrior.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+enum JoystickActions {
+  buttonA,
+  buttonB,
+  buttonX,
+  buttonY,
+}
+
 class MyGame extends StatefulWidget {
   const MyGame({super.key});
 
@@ -19,6 +26,26 @@ class _MyGameState extends State<MyGame> {
   static const _joystickPadding = EdgeInsets.only(
     left: _buttonPadding,
     bottom: _buttonPadding,
+  );
+
+  static const _marginButtonA = EdgeInsets.only(
+    bottom: _buttonPadding,
+    right: _buttonPadding * 2,
+  );
+
+  static const _marginButtonB = EdgeInsets.only(
+    bottom: _buttonPadding * 2,
+    right: _buttonPadding,
+  );
+
+  static const _marginButtonX = EdgeInsets.only(
+    bottom: _buttonPadding * 2,
+    right: _buttonPadding * 3,
+  );
+
+  static const _marginButtonY = EdgeInsets.only(
+    bottom: _buttonPadding * 3,
+    right: _buttonPadding * 2,
   );
 
   final _cameraConfig = CameraConfig(
@@ -39,6 +66,10 @@ class _MyGameState extends State<MyGame> {
           config: KeyboardConfig(
             acceptedKeys: [
               LogicalKeyboardKey.space,
+              LogicalKeyboardKey.keyA,
+              LogicalKeyboardKey.keyB,
+              LogicalKeyboardKey.keyX,
+              LogicalKeyboardKey.keyY,
               LogicalKeyboardKey.keyP,
             ],
             directionalKeys: [
@@ -54,6 +85,32 @@ class _MyGameState extends State<MyGame> {
             size: _joystickSize,
             margin: _joystickPadding,
           ),
+          actions: [
+            JoystickAction(
+              actionId: JoystickActions.buttonB,
+              sprite: Sprite.load(Globals.input.bUnpressed),
+              spritePressed: Sprite.load(Globals.input.bPressed),
+              margin: _marginButtonB,
+            ),
+            JoystickAction(
+              actionId: JoystickActions.buttonA,
+              sprite: Sprite.load(Globals.input.aUnpressed),
+              spritePressed: Sprite.load(Globals.input.aPressed),
+              margin: _marginButtonA,
+            ),
+            JoystickAction(
+              actionId: JoystickActions.buttonX,
+              sprite: Sprite.load(Globals.input.xUnpressed),
+              spritePressed: Sprite.load(Globals.input.xPressed),
+              margin: _marginButtonX,
+            ),
+            JoystickAction(
+              actionId: JoystickActions.buttonY,
+              sprite: Sprite.load(Globals.input.yUnpressed),
+              spritePressed: Sprite.load(Globals.input.yPressed),
+              margin: _marginButtonY,
+            ),
+          ],
         )
       ],
       cameraConfig: _cameraConfig,
