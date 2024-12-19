@@ -4,6 +4,7 @@ import 'package:cool_game/npcs/alchemist.dart';
 import 'package:cool_game/npcs/blacksmith.dart';
 import 'package:cool_game/players/dwarf_warrior.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyGame extends StatefulWidget {
   const MyGame({super.key});
@@ -36,7 +37,9 @@ class _MyGameState extends State<MyGame> {
       playerControllers: [
         Keyboard(
           config: KeyboardConfig(
-            acceptedKeys: [],
+            acceptedKeys: [
+              LogicalKeyboardKey.space,
+            ],
             directionalKeys: [
               KeyboardDirectionalKeys.arrows(),
             ],
