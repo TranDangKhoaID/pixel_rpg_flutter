@@ -53,19 +53,8 @@ class _MyGameState extends State<MyGame> {
     moveOnlyMapArea: true,
   );
 
-  void _onReady(BonfireGameInterface i) {
-    debugPrint('My game is ready');
-  }
-
   bool _devMode = false;
   Key _gameKey = GlobalKey();
-
-  void _toggleDevMode() => setState(
-        () {
-          _devMode = !_devMode;
-          _gameKey = UniqueKey();
-        },
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -141,5 +130,16 @@ class _MyGameState extends State<MyGame> {
                 ),
           }),
     );
+  }
+
+  void _toggleDevMode() => setState(
+        () {
+          _devMode = !_devMode;
+          _gameKey = UniqueKey();
+        },
+      );
+
+  void _onReady(BonfireGameInterface i) {
+    debugPrint('My game is ready');
   }
 }

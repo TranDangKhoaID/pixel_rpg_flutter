@@ -1,6 +1,7 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/extensions/vector2_extensions.dart';
 import 'package:cool_game/globals.dart';
+import 'package:cool_game/mixins/screen_boundary_checker.dart';
 import 'package:cool_game/my_game.dart';
 import 'package:cool_game/services/modal_service.dart';
 import 'package:cool_game/sprite_animations.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:toastification/toastification.dart';
 
 class DwarfWarrior extends PlatformPlayer
-    with HandleForces, MouseEventListener {
+    with HandleForces, MouseEventListener, ScreenBoundaryChecker {
   static const _size = Globals.tileSize * 1.5;
 
   final void Function() toggleDevMode;
@@ -58,6 +59,12 @@ class DwarfWarrior extends PlatformPlayer
       }
     }
     super.onJoystickAction(event);
+  }
+
+  @override
+  void update(double dt) {
+    checkBoundaries();
+    super.update(dt);
   }
 
   void _aAction() => jump();
