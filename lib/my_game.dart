@@ -13,15 +13,16 @@ class MyGame extends StatefulWidget {
 }
 
 class _MyGameState extends State<MyGame> {
+  static const _buttonPadding = 64.0;
+  static const _joystickSize = 100.0;
+  static const _joystickPadding = EdgeInsets.only(
+    left: _buttonPadding,
+    bottom: _buttonPadding,
+  );
+
   final _cameraConfig = CameraConfig(
     initialMapZoomFit: InitialMapZoomFitEnum.fitHeight,
     moveOnlyMapArea: true,
-  );
-
-  final _keyboard = Keyboard(
-    config: KeyboardConfig(
-      enable: true,
-    ),
   );
 
   void _onReady(BonfireGameInterface i) {
@@ -31,8 +32,26 @@ class _MyGameState extends State<MyGame> {
   @override
   Widget build(BuildContext context) {
     return BonfireWidget(
-      showCollisionArea: true,
-      playerControllers: [_keyboard],
+      showCollisionArea: false,
+      playerControllers: [
+        Keyboard(
+          config: KeyboardConfig(
+            acceptedKeys: [],
+            directionalKeys: [
+              KeyboardDirectionalKeys.arrows(),
+            ],
+          ),
+        ),
+        Joystick(
+          directional: JoystickDirectional(
+            spriteKnobDirectional: Sprite.load(
+              Globals.input.leftJoystick,
+            ),
+            size: _joystickSize,
+            margin: _joystickPadding,
+          ),
+        )
+      ],
       cameraConfig: _cameraConfig,
       player: DwarfWarrior(
         position: Vector2.all(20),
