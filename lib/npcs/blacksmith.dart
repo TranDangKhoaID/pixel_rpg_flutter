@@ -10,8 +10,8 @@ class Blacksmith extends SimpleNpc {
             Globals.tileSize,
           ),
           animation: SimpleDirectionAnimation(
-            idleRight: SpriteAnimations.blacksmith,
-            runRight: SpriteAnimations.blacksmith,
+            idleRight: SpriteAnimations.blacksmith.idle,
+            runRight: SpriteAnimations.blacksmith.idle,
           ),
         );
 

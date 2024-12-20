@@ -1,8 +1,10 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:cool_game/enums/joystick_actions.dart';
+import 'package:cool_game/enums/platform_animations_other.dart';
+import 'package:cool_game/extensions/direction_animation_extensions.dart';
 import 'package:cool_game/extensions/vector2_extensions.dart';
 import 'package:cool_game/globals.dart';
 import 'package:cool_game/mixins/screen_boundary_checker.dart';
-import 'package:cool_game/my_game.dart';
 import 'package:cool_game/services/modal_service.dart';
 import 'package:cool_game/sprite_animations.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +25,16 @@ class DwarfWarrior extends PlatformPlayer
           countJumps: 2,
           size: Vector2.all(_size),
           animation: PlatformAnimations(
-            idleRight: SpriteAnimations.dwarfWarriorIdle,
-            runRight: SpriteAnimations.dwarfWarriorWalk,
-          ),
+              idleRight: SpriteAnimations.dwarfWarrior.idle,
+              runRight: SpriteAnimations.dwarfWarrior.walk,
+              others: {
+                PlatformAnimationsOther.attackOne.name:
+                    SpriteAnimations.dwarfWarrior.attack,
+                PlatformAnimationsOther.hurt.name:
+                    SpriteAnimations.dwarfWarrior.hurt,
+                PlatformAnimationsOther.death.name:
+                    SpriteAnimations.dwarfWarrior.death,
+              }),
         ) {
     addForce(Globals.forces.gravity);
   }
@@ -69,9 +78,8 @@ class DwarfWarrior extends PlatformPlayer
 
   void _aAction() => jump();
 
-  void _bAction() => ModalService.showToast(
-        title: 'B Action Called...',
-        type: ToastificationType.warning,
+  void _bAction() => playOnceOther(
+        other: PlatformAnimationsOther.attackOne,
       );
 
   void _xAction() => ModalService.showToast(

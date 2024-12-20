@@ -1,17 +1,11 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:cool_game/enums/joystick_actions.dart';
 import 'package:cool_game/globals.dart';
 import 'package:cool_game/npcs/alchemist.dart';
 import 'package:cool_game/npcs/blacksmith.dart';
 import 'package:cool_game/players/dwarf_warrior.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-enum JoystickActions {
-  buttonA,
-  buttonB,
-  buttonX,
-  buttonY,
-}
 
 class MyGame extends StatefulWidget {
   const MyGame({super.key});
@@ -21,7 +15,7 @@ class MyGame extends StatefulWidget {
 }
 
 class _MyGameState extends State<MyGame> {
-  static const _buttonPadding = 64.0;
+  static const _buttonPadding = 32.0;
   static const _joystickSize = 100.0;
   static const _joystickPadding = EdgeInsets.only(
     left: _buttonPadding,
@@ -74,6 +68,7 @@ class _MyGameState extends State<MyGame> {
               LogicalKeyboardKey.keyP,
             ],
             directionalKeys: [
+              KeyboardDirectionalKeys.wasd(),
               KeyboardDirectionalKeys.arrows(),
             ],
           ),

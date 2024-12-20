@@ -27,10 +27,19 @@ flutter:
 
   assets:
     - assets/images/
+
+    #player
     - assets/images/dwarf_warrior/idle/
     - assets/images/dwarf_warrior/walk/
+    - assets/images/dwarf_warrior/attack/
+    - assets/images/dwarf_warrior/death/
+    - assets/images/dwarf_warrior/hurt/
+
+    #npc
     - assets/images/alchemist/
     - assets/images/blacksmith/
+
+    #input
     - assets/images/input/
 
   # fonts:
