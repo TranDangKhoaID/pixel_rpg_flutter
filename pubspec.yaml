@@ -35,9 +35,16 @@ flutter:
     - assets/images/dwarf_warrior/death/
     - assets/images/dwarf_warrior/hurt/
 
-    #npc
+    #npcs
     - assets/images/alchemist/
     - assets/images/blacksmith/
+
+    #lizardman
+    - assets/images/lizardman/idle/
+    - assets/images/lizardman/walk/
+    - assets/images/lizardman/attack/
+    - assets/images/lizardman/death/
+    - assets/images/lizardman/hurt/
 
     #input
     - assets/images/input/

@@ -1,4 +1,5 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:cool_game/enemies/lizardman.dart';
 import 'package:cool_game/enums/joystick_actions.dart';
 import 'package:cool_game/globals.dart';
 import 'package:cool_game/npcs/alchemist.dart';
@@ -121,6 +122,9 @@ class _MyGameState extends State<MyGame> {
                   position: properties,
                 ),
             'Blacksmith': (properties) => Blacksmith(
+                  position: properties,
+                ),
+            'Lizardman': (properties) => Lizardman(
                   position: properties,
                 ),
           }),

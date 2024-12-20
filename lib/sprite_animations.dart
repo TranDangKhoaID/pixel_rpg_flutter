@@ -10,6 +10,7 @@ class SpriteAnimations {
   //npcs
   static final alchemist = _Alchemist();
   static final blacksmith = _Blacksmith();
+  static final lizardman = _Lizardman();
 
   //enemies
 }
@@ -52,6 +53,34 @@ class _Blacksmith {
   Future<SpriteAnimation> get idle async => _spriteAnimation(
         count: 7,
         path: 'blacksmith',
+      );
+}
+
+//eniemes lizardman
+class _Lizardman {
+  Future<SpriteAnimation> get idle async => _spriteAnimation(
+        count: 3,
+        path: 'lizardman/idle',
+      );
+
+  Future<SpriteAnimation> get walk async => _spriteAnimation(
+        count: 6,
+        path: 'lizardman/walk',
+      );
+
+  Future<SpriteAnimation> get attack async => _spriteAnimation(
+        count: 6,
+        path: 'lizardman/attack',
+      );
+
+  Future<SpriteAnimation> get hurt async => _spriteAnimation(
+        count: 3,
+        path: 'lizardman/hurt',
+      );
+
+  Future<SpriteAnimation> get death async => _spriteAnimation(
+        count: 6,
+        path: 'lizardman/death',
       );
 }
 
