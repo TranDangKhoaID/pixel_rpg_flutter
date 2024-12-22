@@ -17,6 +17,8 @@ class DwarfWarrior extends PlatformPlayer
 
   final void Function() toggleDevMode;
 
+  bool _canAttack = true;
+
   DwarfWarrior({
     required super.position,
     required this.toggleDevMode,
@@ -84,9 +86,20 @@ class DwarfWarrior extends PlatformPlayer
 
   void _aAction() => jump();
 
-  void _bAction() => playOnceOther(
+  void _bAction() {
+    if (_canAttack) {
+      playOnceOther(
         other: PlatformAnimationsOther.attackOne,
+        onStart: () => _canAttack = false,
+        onFinish: () => _canAttack = true,
       );
+
+      simpleAttackMelee(
+        damage: 10,
+        size: size,
+      );
+    }
+  }
 
   void _xAction() => ModalService.showToast(
         title: 'X Action Called...',
