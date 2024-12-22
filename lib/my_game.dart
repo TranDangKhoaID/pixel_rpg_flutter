@@ -1,5 +1,7 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:cool_game/enemies/headless_horseman.dart';
 import 'package:cool_game/enemies/lizardman.dart';
+import 'package:cool_game/enemies/minotaur.dart';
 import 'package:cool_game/enums/joystick_actions.dart';
 import 'package:cool_game/globals.dart';
 import 'package:cool_game/npcs/alchemist.dart';
@@ -125,6 +127,12 @@ class _MyGameState extends State<MyGame> {
                   position: properties,
                 ),
             'Lizardman': (properties) => Lizardman(
+                  position: properties,
+                ),
+            'Minotaur': (properties) => Minotaur(
+                  position: properties,
+                ),
+            'Headless Horseman': (properties) => HeadlessHorseman(
                   position: properties,
                 ),
           }),

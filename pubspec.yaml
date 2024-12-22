@@ -46,6 +46,21 @@ flutter:
     - assets/images/lizardman/death/
     - assets/images/lizardman/hurt/
 
+    #minotaur
+    - assets/images/minotaur/idle/
+    - assets/images/minotaur/walk/
+    - assets/images/minotaur/attack_one/
+    - assets/images/minotaur/attack_two/
+    - assets/images/minotaur/death/
+    - assets/images/minotaur/hurt/
+
+    #headless_horseman
+    - assets/images/headless_horseman/idle/
+    - assets/images/headless_horseman/run/
+    - assets/images/headless_horseman/attack/
+    - assets/images/headless_horseman/death/
+    - assets/images/headless_horseman/hurt/
+
     #input
     - assets/images/input/
 
