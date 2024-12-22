@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:toastification/toastification.dart';
 
 class DwarfWarrior extends PlatformPlayer
-    with HandleForces, MouseEventListener, ScreenBoundaryChecker {
+    with HandleForces, MouseEventListener, ScreenBoundaryChecker, UseLifeBar {
   static const _size = Globals.tileSize * 1.5;
 
   final void Function() toggleDevMode;
@@ -37,6 +37,12 @@ class DwarfWarrior extends PlatformPlayer
               }),
         ) {
     addForce(Globals.forces.gravity);
+
+    setupLifeBar(
+      borderRadius: BorderRadius.circular(2),
+      borderWidth: 2,
+      showLifeText: false,
+    );
   }
 
   @override
