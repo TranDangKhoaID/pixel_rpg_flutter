@@ -42,6 +42,26 @@ class Lizardman extends PlatformEnemy
   @override
   void update(double dt) {
     checkBoundaries();
+    seeAndMoveToPlayer(
+      movementAxis: MovementAxis.horizontal,
+      closePlayer: (player) {
+        animation?.showStroke(Colors.red, 2);
+
+        if (canGiveDamage(player)) {
+          simpleAttackMelee(
+            damage: 5,
+            size: size,
+            execute: () => playOnceOther(
+              other: PlatformAnimationsOther.attackOne,
+            ),
+          );
+        }
+      },
+      notObserved: () {
+        animation?.hideStroke();
+        return true;
+      },
+    );
     super.update(dt);
   }
 
