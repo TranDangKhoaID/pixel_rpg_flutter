@@ -1,6 +1,7 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/enums/platform_animations_other.dart';
 import 'package:cool_game/extensions/direction_animation_extensions.dart';
+import 'package:cool_game/extensions/platform_enemy_extensions.dart';
 import 'package:cool_game/extensions/vector2_extensions.dart';
 import 'package:cool_game/globals.dart';
 import 'package:cool_game/mixins/screen_boundary_checker.dart';
@@ -48,6 +49,20 @@ class Lizardman extends PlatformEnemy
   Future<void> onLoad() {
     add(size.sizeToHitbox());
     return super.onLoad();
+  }
+
+  @override
+  void onReceiveDamage(
+    AttackOriginEnum attacker,
+    double damage,
+    identify,
+  ) {
+    if (canReceiveDamage(gameRef.player!)) {
+      if (damage < life) {
+        playOnceOther(other: PlatformAnimationsOther.hurt);
+      }
+      super.onReceiveDamage(attacker, damage, identify);
+    }
   }
 
   @override
