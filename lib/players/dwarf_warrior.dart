@@ -101,6 +101,20 @@ class DwarfWarrior extends PlatformPlayer
     }
   }
 
+  @override
+  void onReceiveDamage(
+    AttackOriginEnum attacker,
+    double damage,
+    identify,
+  ) {
+    if (damage < life) {
+      playOnceOther(
+        other: PlatformAnimationsOther.hurt,
+      );
+    }
+    super.onReceiveDamage(attacker, damage, identify);
+  }
+
   void _xAction() => ModalService.showToast(
         title: 'X Action Called...',
         type: ToastificationType.warning,
@@ -131,4 +145,13 @@ class DwarfWarrior extends PlatformPlayer
 
   @override
   void onMouseTap(MouseButton button) => toggleDevMode();
+
+  @override
+  void onDie() {
+    playOnceOther(
+      other: PlatformAnimationsOther.death,
+      onFinish: () => removeFromParent(),
+    );
+    super.onDie();
+  }
 }
