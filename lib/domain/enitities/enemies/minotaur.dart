@@ -77,7 +77,7 @@ class Minotaur extends PlatformEnemy
 
   @override
   Future<void> onLoad() {
-    add(size.sizeToHitbox());
+    add(size.actorToHitbox());
     return super.onLoad();
   }
 

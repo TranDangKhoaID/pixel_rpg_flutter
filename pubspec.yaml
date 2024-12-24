@@ -66,6 +66,9 @@ flutter:
     #plant
     - assets/images/plant/
 
+    #world object
+    - assets/images/world_object/
+
     #input
     - assets/images/input/
 

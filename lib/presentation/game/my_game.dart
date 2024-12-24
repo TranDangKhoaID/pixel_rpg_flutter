@@ -7,6 +7,7 @@ import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/enitities/npcs/alchemist.dart';
 import 'package:cool_game/domain/enitities/npcs/blacksmith.dart';
 import 'package:cool_game/domain/enitities/objects/plant.dart';
+import 'package:cool_game/domain/enitities/objects/world_object.dart';
 import 'package:cool_game/domain/enitities/players/dwarf_warrior.dart';
 import 'package:cool_game/presentation/game/backgrounds/parallax_background.dart';
 import 'package:flutter/material.dart';
@@ -139,6 +140,9 @@ class _MyGameState extends State<MyGame> {
                   position: properties,
                 ),
             'Plant': (properties) => Plant(
+                  position: properties,
+                ),
+            'World Object': (properties) => WorldObject(
                   position: properties,
                 ),
           }),

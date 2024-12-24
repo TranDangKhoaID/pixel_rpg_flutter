@@ -139,7 +139,7 @@ class DwarfWarrior extends PlatformPlayer
 
   @override
   Future<void> onLoad() {
-    add(size.sizeToHitbox());
+    add(size.actorToHitbox());
     return super.onLoad();
   }
 
