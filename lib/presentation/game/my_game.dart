@@ -6,6 +6,7 @@ import 'package:cool_game/domain/core/enums/joystick_actions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/enitities/npcs/alchemist.dart';
 import 'package:cool_game/domain/enitities/npcs/blacksmith.dart';
+import 'package:cool_game/domain/enitities/objects/plant.dart';
 import 'package:cool_game/domain/enitities/players/dwarf_warrior.dart';
 import 'package:cool_game/presentation/game/backgrounds/parallax_background.dart';
 import 'package:flutter/material.dart';
@@ -135,6 +136,9 @@ class _MyGameState extends State<MyGame> {
                   position: properties,
                 ),
             'Headless Horseman': (properties) => HeadlessHorseman(
+                  position: properties,
+                ),
+            'Plant': (properties) => Plant(
                   position: properties,
                 ),
           }),

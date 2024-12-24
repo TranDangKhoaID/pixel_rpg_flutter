@@ -63,6 +63,9 @@ flutter:
     - assets/images/headless_horseman/death/
     - assets/images/headless_horseman/hurt/
 
+    #plant
+    - assets/images/plant/
+
     #input
     - assets/images/input/
 
