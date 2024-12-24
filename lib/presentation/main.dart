@@ -1,4 +1,4 @@
-import 'package:cool_game/my_game.dart';
+import 'package:cool_game/presentation/game/my_game.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 

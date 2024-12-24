@@ -1,12 +1,13 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:cool_game/enemies/headless_horseman.dart';
-import 'package:cool_game/enemies/lizardman.dart';
-import 'package:cool_game/enemies/minotaur.dart';
-import 'package:cool_game/enums/joystick_actions.dart';
-import 'package:cool_game/globals.dart';
-import 'package:cool_game/npcs/alchemist.dart';
-import 'package:cool_game/npcs/blacksmith.dart';
-import 'package:cool_game/players/dwarf_warrior.dart';
+import 'package:cool_game/domain/enitities/enemies/headless_horseman.dart';
+import 'package:cool_game/domain/enitities/enemies/lizardman.dart';
+import 'package:cool_game/domain/enitities/enemies/minotaur.dart';
+import 'package:cool_game/domain/core/enums/joystick_actions.dart';
+import 'package:cool_game/domain/core/globals.dart';
+import 'package:cool_game/domain/enitities/npcs/alchemist.dart';
+import 'package:cool_game/domain/enitities/npcs/blacksmith.dart';
+import 'package:cool_game/domain/enitities/players/dwarf_warrior.dart';
+import 'package:cool_game/presentation/game/backgrounds/parallax_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -117,6 +118,7 @@ class _MyGameState extends State<MyGame> {
         position: Vector2.all(20),
         toggleDevMode: _toggleDevMode,
       ),
+      background: ParallaxBackground(),
       onReady: _onReady,
       map: WorldMapBySpritefusion(WorldMapReader.fromAsset(Globals.map),
           objectsBuilder: {

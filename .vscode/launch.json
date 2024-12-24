@@ -8,19 +8,22 @@
         {
             "name": "cool_game",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "program": "lib/presentation/main.dart"
         },
         {
             "name": "cool_game (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "program": "lib/presentation/main.dart"
         },
         {
             "name": "cool_game (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "release",
+            "program": "lib/presentation/main.dart"
         }
     ]
 }
