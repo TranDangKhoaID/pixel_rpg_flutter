@@ -15,6 +15,9 @@ class SpriteAnimations {
   static final lizardman = _Lizardman();
   static final minotaur = _Minotaur();
   static final headlessHorseman = _HeadlessHorseman();
+
+  //
+  static final chest = _Chest();
 }
 
 class _DwarfWarrior {
@@ -144,6 +147,28 @@ class _HeadlessHorseman {
   Future<SpriteAnimation> get death async => _spriteAnimation(
         count: 10,
         path: 'headless_horseman/death',
+      );
+}
+
+//chest
+class _Chest {
+  Future<SpriteAnimation> get closed async => SpriteAnimation.spriteList(
+        [
+          await Sprite.load('chest/0.png'),
+        ],
+        stepTime: Globals.spriteStepTime,
+      );
+
+  Future<SpriteAnimation> get opening async => _spriteAnimation(
+        count: 10,
+        path: 'chest',
+      );
+
+  Future<SpriteAnimation> get open async => SpriteAnimation.spriteList(
+        [
+          await Sprite.load('chest/9.png'),
+        ],
+        stepTime: Globals.spriteStepTime,
       );
 }
 

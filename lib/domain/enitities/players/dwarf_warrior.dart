@@ -6,6 +6,7 @@ import 'package:cool_game/domain/core/extensions/vector2_extensions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/core/mixins/screen_boundary_checker.dart';
 import 'package:cool_game/data/services/modal_service.dart';
+import 'package:cool_game/domain/enitities/objects/chest.dart';
 import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +19,8 @@ class DwarfWarrior extends PlatformPlayer
   final void Function() toggleDevMode;
 
   bool _canAttack = true;
+
+  Chest? _recentChest;
 
   DwarfWarrior({
     required super.position,
@@ -115,10 +118,11 @@ class DwarfWarrior extends PlatformPlayer
     super.onReceiveDamage(attacker, damage, identify);
   }
 
-  void _xAction() => ModalService.showToast(
-        title: 'X Action Called...',
-        type: ToastificationType.warning,
-      );
+  void _xAction() {
+    if (_recentChest != null && !_recentChest!.isOpen) {
+      _recentChest!.openChest();
+    }
+  }
 
   void _yAction() => ModalService.showToast(
         title: 'Y Action Called...',
@@ -153,5 +157,16 @@ class DwarfWarrior extends PlatformPlayer
       onFinish: () => removeFromParent(),
     );
     super.onDie();
+  }
+
+  @override
+  void onCollision(
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) {
+    if (other is Chest) {
+      _recentChest = other;
+    }
+    super.onCollision(intersectionPoints, other);
   }
 }

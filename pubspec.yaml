@@ -15,6 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   bonfire: ^3.12.3
   toastification: ^2.3.0
+  material_design_icons_flutter: ^7.0.7296
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +69,9 @@ flutter:
 
     #world object
     - assets/images/world_object/
+
+    #chest
+    - assets/images/chest/
 
     #input
     - assets/images/input/

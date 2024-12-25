@@ -6,6 +6,7 @@ import 'package:cool_game/domain/core/enums/joystick_actions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/enitities/npcs/alchemist.dart';
 import 'package:cool_game/domain/enitities/npcs/blacksmith.dart';
+import 'package:cool_game/domain/enitities/objects/chest.dart';
 import 'package:cool_game/domain/enitities/objects/plant.dart';
 import 'package:cool_game/domain/enitities/objects/world_object.dart';
 import 'package:cool_game/domain/enitities/players/dwarf_warrior.dart';
@@ -143,6 +144,9 @@ class _MyGameState extends State<MyGame> {
                   position: properties,
                 ),
             'World Object': (properties) => WorldObject(
+                  position: properties,
+                ),
+            'Chest': (properties) => Chest(
                   position: properties,
                 ),
           }),
