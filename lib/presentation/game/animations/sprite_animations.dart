@@ -18,6 +18,7 @@ class SpriteAnimations {
 
   //
   static final chest = _Chest();
+  static final bonfire = _Bonfire();
 }
 
 class _DwarfWarrior {
@@ -169,6 +170,15 @@ class _Chest {
           await Sprite.load('chest/9.png'),
         ],
         stepTime: Globals.spriteStepTime,
+      );
+}
+
+//bonfire
+
+class _Bonfire {
+  Future<SpriteAnimation> get idle async => _spriteAnimation(
+        count: 6,
+        path: 'bonfire',
       );
 }
 

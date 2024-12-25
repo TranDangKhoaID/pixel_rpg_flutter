@@ -73,6 +73,9 @@ flutter:
     #chest
     - assets/images/chest/
 
+    #bonfire
+    - assets/images/bonfire/
+
     #input
     - assets/images/input/
 

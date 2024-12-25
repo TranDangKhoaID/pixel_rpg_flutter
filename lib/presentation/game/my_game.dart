@@ -6,6 +6,7 @@ import 'package:cool_game/domain/core/enums/joystick_actions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/enitities/npcs/alchemist.dart';
 import 'package:cool_game/domain/enitities/npcs/blacksmith.dart';
+import 'package:cool_game/domain/enitities/objects/bonfire.dart';
 import 'package:cool_game/domain/enitities/objects/chest.dart';
 import 'package:cool_game/domain/enitities/objects/plant.dart';
 import 'package:cool_game/domain/enitities/objects/world_object.dart';
@@ -117,6 +118,7 @@ class _MyGameState extends State<MyGame> {
         )
       ],
       cameraConfig: _cameraConfig,
+      lightingColorGame: Colors.white.withOpacity(0.01),
       player: DwarfWarrior(
         position: Vector2.all(20),
         toggleDevMode: _toggleDevMode,
@@ -147,6 +149,9 @@ class _MyGameState extends State<MyGame> {
                   position: properties,
                 ),
             'Chest': (properties) => Chest(
+                  position: properties,
+                ),
+            'Bonfire': (properties) => Bonfire(
                   position: properties,
                 ),
           }),
