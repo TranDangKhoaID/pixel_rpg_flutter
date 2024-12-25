@@ -6,10 +6,12 @@ import 'package:cool_game/domain/core/extensions/vector2_extensions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/core/mixins/screen_boundary_checker.dart';
 import 'package:cool_game/data/services/modal_service.dart';
+import 'package:cool_game/domain/core/providers.dart';
 import 'package:cool_game/domain/enitities/objects/chest.dart';
 import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toastification/toastification.dart';
 
 class DwarfWarrior extends PlatformPlayer
@@ -22,7 +24,10 @@ class DwarfWarrior extends PlatformPlayer
 
   Chest? _recentChest;
 
-  DwarfWarrior({
+  final WidgetRef ref;
+
+  DwarfWarrior(
+    this.ref, {
     required super.position,
     required this.toggleDevMode,
   }) : super(
@@ -125,7 +130,7 @@ class DwarfWarrior extends PlatformPlayer
   }
 
   void _yAction() => ModalService.showToast(
-        title: 'Y Action Called...',
+        title: '${ref.read(Providers.inventoryProvider).length} items.',
         type: ToastificationType.warning,
       );
 

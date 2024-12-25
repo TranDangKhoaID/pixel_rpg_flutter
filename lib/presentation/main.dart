@@ -1,5 +1,6 @@
 import 'package:cool_game/presentation/game/my_game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toastification/toastification.dart';
 
 void main() {
@@ -12,16 +13,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ToastificationWrapper(
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'My RPG Game',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+    return ProviderScope(
+      child: ToastificationWrapper(
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'My RPG Game',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          home: const GameScreen(),
         ),
-        home: const MyGame(),
       ),
     );
+  }
+}
+
+class GameScreen extends ConsumerWidget {
+  const GameScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MyGame(ref);
   }
 }

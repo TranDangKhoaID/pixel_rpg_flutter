@@ -14,9 +14,11 @@ import 'package:cool_game/domain/enitities/players/dwarf_warrior.dart';
 import 'package:cool_game/presentation/game/backgrounds/parallax_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MyGame extends StatefulWidget {
-  const MyGame({super.key});
+  final WidgetRef ref;
+  const MyGame(this.ref, {super.key});
 
   @override
   State<MyGame> createState() => _MyGameState();
@@ -120,6 +122,7 @@ class _MyGameState extends State<MyGame> {
       cameraConfig: _cameraConfig,
       lightingColorGame: Colors.white.withOpacity(0.01),
       player: DwarfWarrior(
+        widget.ref,
         position: Vector2.all(20),
         toggleDevMode: _toggleDevMode,
       ),
