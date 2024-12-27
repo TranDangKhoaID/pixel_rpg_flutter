@@ -1,7 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 
 class ModalService {
+  //
   static void showToast({
     required String title,
     required ToastificationType type,

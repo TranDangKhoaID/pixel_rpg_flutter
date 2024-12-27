@@ -1,4 +1,5 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:cool_game/domain/core/enums/overlays.dart';
 import 'package:cool_game/domain/enitities/enemies/headless_horseman.dart';
 import 'package:cool_game/domain/enitities/enemies/lizardman.dart';
 import 'package:cool_game/domain/enitities/enemies/minotaur.dart';
@@ -12,6 +13,7 @@ import 'package:cool_game/domain/enitities/objects/plant.dart';
 import 'package:cool_game/domain/enitities/objects/world_object.dart';
 import 'package:cool_game/domain/enitities/players/dwarf_warrior.dart';
 import 'package:cool_game/presentation/game/backgrounds/parallax_background.dart';
+import 'package:cool_game/presentation/game/overlays/iventory_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -119,6 +121,15 @@ class _MyGameState extends State<MyGame> {
           ],
         )
       ],
+      overlayBuilderMap: {
+        Overlays.inventory.name: (context, game) => InventoryOverlay(
+              player: game.player,
+              onClose: () {
+                game.resumeEngine();
+                game.overlays.remove(Overlays.inventory.name);
+              },
+            )
+      },
       cameraConfig: _cameraConfig,
       lightingColorGame: Colors.white.withOpacity(0.01),
       player: DwarfWarrior(

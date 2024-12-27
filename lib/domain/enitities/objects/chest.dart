@@ -1,12 +1,9 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:cool_game/data/services/modal_service.dart';
 import 'package:cool_game/domain/core/extensions/game_component_extentions.dart';
 import 'package:cool_game/domain/core/extensions/vector2_extensions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:toastification/toastification.dart';
 
 class Chest extends GameDecoration with Vision {
   static const _positionBuffer = 16.0;
@@ -67,7 +64,7 @@ class Chest extends GameDecoration with Vision {
           setAnimation(
             await SpriteAnimations.chest.open,
           );
-          //
+          //rớt vật phẩm
           dropItem();
         },
       );

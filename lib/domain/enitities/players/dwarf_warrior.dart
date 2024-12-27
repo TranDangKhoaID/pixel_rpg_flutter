@@ -1,12 +1,12 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/domain/core/enums/joystick_actions.dart';
+import 'package:cool_game/domain/core/enums/overlays.dart';
 import 'package:cool_game/domain/core/enums/platform_animations_other.dart';
 import 'package:cool_game/domain/core/extensions/direction_animation_extensions.dart';
 import 'package:cool_game/domain/core/extensions/vector2_extensions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/core/mixins/screen_boundary_checker.dart';
 import 'package:cool_game/data/services/modal_service.dart';
-import 'package:cool_game/domain/core/providers.dart';
 import 'package:cool_game/domain/enitities/objects/chest.dart';
 import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
 import 'package:flutter/material.dart';
@@ -129,10 +129,10 @@ class DwarfWarrior extends PlatformPlayer
     }
   }
 
-  void _yAction() => ModalService.showToast(
-        title: '${ref.read(Providers.inventoryProvider).length} items.',
-        type: ToastificationType.warning,
-      );
+  void _yAction() {
+    gameRef.pauseEngine();
+    gameRef.overlays.add(Overlays.inventory.name);
+  }
 
   void _togglePause() {
     final isPaused = gameRef.paused;
