@@ -7,6 +7,11 @@ import 'package:cool_game/domain/core/extensions/vector2_extensions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/core/mixins/screen_boundary_checker.dart';
 import 'package:cool_game/data/services/modal_service.dart';
+import 'package:cool_game/domain/core/providers.dart';
+import 'package:cool_game/domain/enitities/items/coin.dart';
+import 'package:cool_game/domain/enitities/items/gem.dart';
+import 'package:cool_game/domain/enitities/items/item.dart';
+import 'package:cool_game/domain/enitities/items/potion.dart';
 import 'package:cool_game/domain/enitities/objects/chest.dart';
 import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
 import 'package:flutter/material.dart';
@@ -169,9 +174,36 @@ class DwarfWarrior extends PlatformPlayer
     Set<Vector2> intersectionPoints,
     PositionComponent other,
   ) {
-    if (other is Chest) {
-      _recentChest = other;
+    Item? item;
+
+    switch (other) {
+      case Chest():
+        _recentChest = other;
+        break;
+      case CoinDecoration():
+        item = Coin();
+        break;
+      case GemDecoration():
+        item = Gem();
+        break;
+      case PotionDecoration():
+        item = Potion();
+        break;
     }
+
+    if (item != null) {
+      ref.read(Providers.inventoryProvider.notifier).addItem(item);
+      ModalService.showToast(
+        title: '${item.name} added to inventory',
+        type: ToastificationType.success,
+        icon: Image.asset(
+          'assets/images/${item.spritePath}',
+          width: Globals.tileSize,
+          height: Globals.tileSize,
+        ),
+      );
+    }
+
     super.onCollision(intersectionPoints, other);
   }
 }

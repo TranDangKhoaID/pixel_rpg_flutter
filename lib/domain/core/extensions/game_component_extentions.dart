@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/domain/enitities/items/coin.dart';
+import 'package:cool_game/domain/enitities/items/gem.dart';
+import 'package:cool_game/domain/enitities/items/potion.dart';
 
 extension GameComponentExtentions on GameComponent {
   void dropItem() {
@@ -12,6 +14,8 @@ extension GameComponentExtentions on GameComponent {
 
     final item = [
       CoinDecoration(position: pos),
+      GemDecoration(position: pos),
+      PotionDecoration(position: pos),
     ];
 
     final index = Random().nextInt(item.length);
