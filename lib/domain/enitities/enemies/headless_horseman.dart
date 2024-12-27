@@ -1,6 +1,7 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/domain/core/enums/platform_animations_other.dart';
 import 'package:cool_game/domain/core/extensions/direction_animation_extensions.dart';
+import 'package:cool_game/domain/core/extensions/game_component_extentions.dart';
 import 'package:cool_game/domain/core/extensions/platform_enemy_extensions.dart';
 import 'package:cool_game/domain/core/extensions/vector2_extensions.dart';
 import 'package:cool_game/domain/core/globals.dart';
@@ -80,7 +81,7 @@ class HeadlessHorseman extends PlatformEnemy
   void onDie() {
     playOnceOther(
       other: PlatformAnimationsOther.death,
-      onFinish: () => removeFromParent(),
+      onFinish: () => dropItem(),
     );
     super.onDie();
   }

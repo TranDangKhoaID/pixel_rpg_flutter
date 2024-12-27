@@ -1,5 +1,6 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/data/services/modal_service.dart';
+import 'package:cool_game/domain/core/extensions/game_component_extentions.dart';
 import 'package:cool_game/domain/core/extensions/vector2_extensions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
@@ -66,14 +67,8 @@ class Chest extends GameDecoration with Vision {
           setAnimation(
             await SpriteAnimations.chest.open,
           );
-
-          ModalService.showToast(
-            title: 'You got an award!',
-            type: ToastificationType.success,
-            icon: Icon(
-              MdiIcons.trophy,
-            ),
-          );
+          //
+          dropItem();
         },
       );
     }

@@ -19,6 +19,7 @@ class SpriteAnimations {
   //
   static final chest = _Chest();
   static final bonfire = _Bonfire();
+  static final inventory = _Iventory();
 }
 
 class _DwarfWarrior {
@@ -174,11 +175,28 @@ class _Chest {
 }
 
 //bonfire
-
 class _Bonfire {
   Future<SpriteAnimation> get idle async => _spriteAnimation(
         count: 6,
         path: 'bonfire',
+      );
+}
+
+//Inventory
+class _Iventory {
+  Future<SpriteAnimation> get coin async => _spriteAnimation(
+        count: 4,
+        path: 'coin',
+      );
+
+  Future<SpriteAnimation> get gem async => _spriteAnimation(
+        count: 4,
+        path: 'gem',
+      );
+
+  Future<SpriteAnimation> get potion async => _spriteAnimation(
+        count: 8,
+        path: 'potion',
       );
 }
 

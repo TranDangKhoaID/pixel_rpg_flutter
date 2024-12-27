@@ -78,6 +78,18 @@ flutter:
     #bonfire
     - assets/images/bonfire/
 
+    #gen
+    - assets/images/gem/
+
+    #potion
+    - assets/images/potion/
+
+    #item
+    - assets/images/item/
+
+    #coin
+    - assets/images/coin/
+
     #input
     - assets/images/input/
 
