@@ -1,5 +1,7 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:cool_game/domain/core/enums/game_progress.dart';
 import 'package:cool_game/domain/core/enums/overlays.dart';
+import 'package:cool_game/domain/core/providers.dart';
 import 'package:cool_game/domain/enitities/enemies/headless_horseman.dart';
 import 'package:cool_game/domain/enitities/enemies/lizardman.dart';
 import 'package:cool_game/domain/enitities/enemies/minotaur.dart';
@@ -155,6 +157,9 @@ class _MyGameState extends State<MyGame> {
   }
 
   void _onReset() {
+    widget.ref.read(Providers.gameProgressProvider.notifier).updateProgress(
+          GameProgress.start,
+        );
     setState(() {
       _gameKey = UniqueKey();
     });
