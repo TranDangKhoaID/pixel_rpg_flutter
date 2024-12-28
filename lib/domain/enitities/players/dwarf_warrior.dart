@@ -164,7 +164,10 @@ class DwarfWarrior extends PlatformPlayer
   void onDie() {
     playOnceOther(
       other: PlatformAnimationsOther.death,
-      onFinish: () => removeFromParent(),
+      onFinish: () {
+        removeFromParent();
+        gameRef.overlays.add(Overlays.gameOver.name);
+      },
     );
     super.onDie();
   }

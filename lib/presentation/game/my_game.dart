@@ -13,6 +13,8 @@ import 'package:cool_game/domain/enitities/objects/plant.dart';
 import 'package:cool_game/domain/enitities/objects/world_object.dart';
 import 'package:cool_game/domain/enitities/players/dwarf_warrior.dart';
 import 'package:cool_game/presentation/game/backgrounds/parallax_background.dart';
+import 'package:cool_game/presentation/game/overlays/game_over_overlay.dart';
+import 'package:cool_game/presentation/game/overlays/game_won_overlay.dart';
 import 'package:cool_game/presentation/game/overlays/iventory_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -122,6 +124,12 @@ class _MyGameState extends State<MyGame> {
         )
       ],
       overlayBuilderMap: {
+        Overlays.gameOver.name: (context, game) => GameOverOverlay(
+              onReset: _onReset,
+            ),
+        Overlays.gameWon.name: (context, game) => GameWonOverlay(
+              onReset: _onReset,
+            ),
         Overlays.inventory.name: (context, game) => InventoryOverlay(
               player: game.player,
               onClose: () {
@@ -139,37 +147,17 @@ class _MyGameState extends State<MyGame> {
       ),
       background: ParallaxBackground(),
       onReady: _onReady,
-      map: WorldMapBySpritefusion(WorldMapReader.fromAsset(Globals.map),
-          objectsBuilder: {
-            'Alchemist': (properties) => Alchemist(
-                  position: properties,
-                ),
-            'Blacksmith': (properties) => Blacksmith(
-                  position: properties,
-                ),
-            'Lizardman': (properties) => Lizardman(
-                  position: properties,
-                ),
-            'Minotaur': (properties) => Minotaur(
-                  position: properties,
-                ),
-            'Headless Horseman': (properties) => HeadlessHorseman(
-                  position: properties,
-                ),
-            'Plant': (properties) => Plant(
-                  position: properties,
-                ),
-            'World Object': (properties) => WorldObject(
-                  position: properties,
-                ),
-            'Chest': (properties) => Chest(
-                  position: properties,
-                ),
-            'Bonfire': (properties) => Bonfire(
-                  position: properties,
-                ),
-          }),
+      map: WorldMapBySpritefusion(
+        WorldMapReader.fromAsset(Globals.map.name),
+        objectsBuilder: Globals.map.objectsBuilder,
+      ),
     );
+  }
+
+  void _onReset() {
+    setState(() {
+      _gameKey = UniqueKey();
+    });
   }
 
   void _toggleDevMode() => setState(
