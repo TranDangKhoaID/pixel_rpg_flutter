@@ -34,6 +34,8 @@ class DwarfWarrior extends PlatformPlayer
 
   bool alchemistClose = false;
 
+  bool blacksmithClose = false;
+
   DwarfWarrior(
     this.ref, {
     required super.position,
@@ -138,11 +140,35 @@ class DwarfWarrior extends PlatformPlayer
     if (alchemistClose) {
       _initiateAlchemistDialog();
     }
+    if (blacksmithClose) {
+      _initiateBlacksmithDialog();
+    }
   }
 
   void _initiateAlchemistDialog() {
     final conversation =
         ref.read(Providers.gameProgressProvider.notifier).getAlchemistDialog();
+    TalkDialog.show(
+      context,
+      conversation,
+      onFinish: () {
+        switch (ref.read(Providers.gameProgressProvider)) {
+          case GameProgress.start:
+            break;
+          case GameProgress.searching:
+            break;
+          case GameProgress.charcoalCollected:
+            break;
+          case GameProgress.elixerCollected:
+            break;
+        }
+      },
+    );
+  }
+
+  void _initiateBlacksmithDialog() {
+    final conversation =
+        ref.read(Providers.gameProgressProvider.notifier).getBlacksmithDialog();
     TalkDialog.show(
       context,
       conversation,

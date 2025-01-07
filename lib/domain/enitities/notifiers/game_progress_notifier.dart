@@ -122,4 +122,55 @@ class GameProgressNotifier extends riverpod.Notifier<GameProgress> {
         ];
     }
   }
+
+  List<Say> getBlacksmithDialog() {
+    switch (state) {
+      case GameProgress.start:
+        return [
+          Say(
+            text: [
+              const TextSpan(
+                  text:
+                      'Hello there lad, I think my wife needs some help. Can you talk to her for me?'),
+            ],
+            personSayDirection: PersonSayDirection.RIGHT,
+            person: blacksmith,
+          ),
+        ];
+      case GameProgress.searching:
+        return [
+          Say(
+            text: [
+              const TextSpan(text: 'A little blue bird told me you need some '),
+              charcoalText,
+              const TextSpan(text: '. Well here it is!'),
+            ],
+            personSayDirection: PersonSayDirection.RIGHT,
+            person: blacksmith,
+          ),
+        ];
+      case GameProgress.charcoalCollected:
+        return [
+          Say(
+            text: [
+              const TextSpan(text: 'Well what are you waiting for lad?'),
+            ],
+            personSayDirection: PersonSayDirection.RIGHT,
+            person: blacksmith,
+          ),
+        ];
+      case GameProgress.elixerCollected:
+        return [
+          Say(
+            text: [
+              const TextSpan(
+                  text:
+                      'Ah thank you! I needed this more than you could ever know!'),
+            ],
+            personSayDirection: PersonSayDirection.RIGHT,
+            person: blacksmith,
+          ),
+        ];
+    }
+  }
 }
