@@ -18,6 +18,7 @@ import 'package:cool_game/presentation/game/backgrounds/parallax_background.dart
 import 'package:cool_game/presentation/game/overlays/game_over_overlay.dart';
 import 'package:cool_game/presentation/game/overlays/game_won_overlay.dart';
 import 'package:cool_game/presentation/game/overlays/iventory_overlay.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -65,6 +66,12 @@ class _MyGameState extends State<MyGame> {
 
   bool _devMode = false;
   Key _gameKey = GlobalKey();
+
+  @override
+  void dispose() {
+    super.dispose();
+    FlameAudio.bgm.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -175,5 +182,8 @@ class _MyGameState extends State<MyGame> {
 
   void _onReady(BonfireGameInterface i) {
     debugPrint('My game is ready');
+    widget.ref
+        .read(Providers.audioSettingsProvider.notifier)
+        .initializeMusic(Globals.audio.backgroundMusic);
   }
 }
