@@ -1,4 +1,5 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:cool_game/domain/core/enums/game_progress.dart';
 import 'package:cool_game/domain/core/enums/joystick_actions.dart';
 import 'package:cool_game/domain/core/enums/overlays.dart';
 import 'package:cool_game/domain/core/enums/platform_animations_other.dart';
@@ -30,6 +31,8 @@ class DwarfWarrior extends PlatformPlayer
   Chest? _recentChest;
 
   final WidgetRef ref;
+
+  bool alchemistClose = false;
 
   DwarfWarrior(
     this.ref, {
@@ -132,6 +135,30 @@ class DwarfWarrior extends PlatformPlayer
     if (_recentChest != null && !_recentChest!.isOpen) {
       _recentChest!.openChest();
     }
+    if (alchemistClose) {
+      _initiateAlchemistDialog();
+    }
+  }
+
+  void _initiateAlchemistDialog() {
+    final conversation =
+        ref.read(Providers.gameProgressProvider.notifier).getAlchemistDialog();
+    TalkDialog.show(
+      context,
+      conversation,
+      onFinish: () {
+        switch (ref.read(Providers.gameProgressProvider)) {
+          case GameProgress.start:
+            break;
+          case GameProgress.searching:
+            break;
+          case GameProgress.charcoalCollected:
+            break;
+          case GameProgress.elixerCollected:
+            break;
+        }
+      },
+    );
   }
 
   void _yAction() {

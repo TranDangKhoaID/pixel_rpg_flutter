@@ -14,7 +14,10 @@ class GameOverOverlay extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Lottie.asset(Globals.lottie.gameOver),
+          Lottie.asset(
+            Globals.lottie.gameOver,
+            fit: BoxFit.cover,
+          ),
           const Gap(32),
           ElevatedButton(
             onPressed: onReset,
