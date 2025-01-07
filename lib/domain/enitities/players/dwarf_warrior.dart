@@ -9,7 +9,9 @@ import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/core/mixins/screen_boundary_checker.dart';
 import 'package:cool_game/data/services/modal_service.dart';
 import 'package:cool_game/domain/core/providers.dart';
+import 'package:cool_game/domain/enitities/items/charcoal.dart';
 import 'package:cool_game/domain/enitities/items/coin.dart';
+import 'package:cool_game/domain/enitities/items/elixer.dart';
 import 'package:cool_game/domain/enitities/items/gem.dart';
 import 'package:cool_game/domain/enitities/items/item.dart';
 import 'package:cool_game/domain/enitities/items/potion.dart';
@@ -154,10 +156,25 @@ class DwarfWarrior extends PlatformPlayer
       onFinish: () {
         switch (ref.read(Providers.gameProgressProvider)) {
           case GameProgress.start:
+            ref.read(Providers.gameProgressProvider.notifier).updateProgress(
+                  GameProgress.searching,
+                );
             break;
           case GameProgress.searching:
             break;
           case GameProgress.charcoalCollected:
+            ref.read(Providers.inventoryProvider.notifier).removeItem(
+                  Charcoal().id,
+                );
+            if (!ref.read(Providers.inventoryProvider.notifier).hasItem(
+                  Elixer().id,
+                )) {
+              _receiveItem(Elixer());
+            }
+
+            ref.read(Providers.gameProgressProvider.notifier).updateProgress(
+                  GameProgress.elixerCollected,
+                );
             break;
           case GameProgress.elixerCollected:
             break;
@@ -177,10 +194,20 @@ class DwarfWarrior extends PlatformPlayer
           case GameProgress.start:
             break;
           case GameProgress.searching:
+            if (!ref.read(Providers.inventoryProvider.notifier).hasItem(
+                  Charcoal().id,
+                )) {
+              _receiveItem(Charcoal());
+            }
+
+            ref.read(Providers.gameProgressProvider.notifier).updateProgress(
+                  GameProgress.charcoalCollected,
+                );
             break;
           case GameProgress.charcoalCollected:
             break;
           case GameProgress.elixerCollected:
+            gameRef.overlays.add(Overlays.gameWon.name);
             break;
         }
       },
@@ -190,18 +217,6 @@ class DwarfWarrior extends PlatformPlayer
   void _yAction() {
     gameRef.pauseEngine();
     gameRef.overlays.add(Overlays.inventory.name);
-  }
-
-  void _togglePause() {
-    final isPaused = gameRef.paused;
-
-    isPaused ? gameRef.resumeEngine() : gameRef.pauseEngine();
-
-    ModalService.showToast(
-      title: isPaused ? 'Game resumed' : 'Game paused...',
-      type: isPaused ? ToastificationType.success : ToastificationType.warning,
-      icon: isPaused ? const Icon(Icons.play_arrow) : const Icon(Icons.pause),
-    );
   }
 
   @override
@@ -248,18 +263,34 @@ class DwarfWarrior extends PlatformPlayer
     }
 
     if (item != null) {
-      ref.read(Providers.inventoryProvider.notifier).addItem(item);
-      ModalService.showToast(
-        title: '${item.name} added to inventory',
-        type: ToastificationType.success,
-        icon: Image.asset(
-          'assets/images/${item.spritePath}',
-          width: Globals.tileSize,
-          height: Globals.tileSize,
-        ),
-      );
+      _receiveItem(item);
     }
 
     super.onCollision(intersectionPoints, other);
+  }
+
+  void _togglePause() {
+    final isPaused = gameRef.paused;
+
+    isPaused ? gameRef.resumeEngine() : gameRef.pauseEngine();
+
+    ModalService.showToast(
+      title: isPaused ? 'Game resumed' : 'Game paused...',
+      type: isPaused ? ToastificationType.success : ToastificationType.warning,
+      icon: isPaused ? const Icon(Icons.play_arrow) : const Icon(Icons.pause),
+    );
+  }
+
+  void _receiveItem(Item item) {
+    ref.read(Providers.inventoryProvider.notifier).addItem(item);
+    ModalService.showToast(
+      title: '${item.name} added to inventory',
+      type: ToastificationType.success,
+      icon: Image.asset(
+        'assets/images/${item.spritePath}',
+        width: Globals.tileSize,
+        height: Globals.tileSize,
+      ),
+    );
   }
 }

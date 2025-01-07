@@ -33,4 +33,8 @@ class InventoryNotifier extends Notifier<List<Item>> {
         .whereType<Item>()
         .toList();
   }
+
+  bool hasItem(String itemId) => state.any((item) => item.id == itemId);
+
+  void resetInventory() => state = [];
 }

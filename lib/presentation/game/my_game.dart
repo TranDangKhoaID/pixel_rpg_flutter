@@ -160,6 +160,7 @@ class _MyGameState extends State<MyGame> {
     widget.ref.read(Providers.gameProgressProvider.notifier).updateProgress(
           GameProgress.start,
         );
+    widget.ref.read(Providers.inventoryProvider.notifier).resetInventory();
     setState(() {
       _gameKey = UniqueKey();
     });
