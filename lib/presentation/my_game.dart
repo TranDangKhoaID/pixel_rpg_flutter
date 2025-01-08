@@ -135,6 +135,7 @@ class _MyGameState extends State<MyGame> {
           ],
         )
       ],
+      initialActiveOverlays: [Overlays.audioSettings.name],
       overlayBuilderMap: {
         Overlays.audioSettings.name: (context, game) => AudioSettingsOverlay(
               onClose: () {
