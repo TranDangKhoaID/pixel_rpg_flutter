@@ -2,7 +2,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/data/services/modal_service.dart';
 import 'package:cool_game/domain/core/extensions/game_component_extentions.dart';
 import 'package:cool_game/domain/core/globals.dart';
-import 'package:cool_game/presentation/game/overlays/overlay_container.dart';
+import 'package:cool_game/presentation/overlays/overlay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cool_game/domain/core/providers.dart';

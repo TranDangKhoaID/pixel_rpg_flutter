@@ -2,7 +2,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/domain/core/extensions/vector2_extensions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/enitities/players/dwarf_warrior.dart';
-import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
+import 'package:cool_game/presentation/animations/sprite_animations.dart';
 import 'package:flutter/material.dart';
 
 class Alchemist extends SimpleNpc {

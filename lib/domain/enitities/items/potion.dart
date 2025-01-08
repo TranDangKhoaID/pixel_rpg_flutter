@@ -1,6 +1,6 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/domain/enitities/items/item.dart';
-import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
+import 'package:cool_game/presentation/animations/sprite_animations.dart';
 
 class Potion extends Item {
   Potion()

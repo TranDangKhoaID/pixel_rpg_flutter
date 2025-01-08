@@ -1,5 +1,5 @@
 import 'package:cool_game/domain/core/globals.dart';
-import 'package:cool_game/presentation/game/my_game.dart';
+import 'package:cool_game/presentation/my_game.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

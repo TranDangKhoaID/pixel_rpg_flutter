@@ -8,7 +8,7 @@ import 'package:cool_game/domain/core/extensions/platform_enemy_extensions.dart'
 import 'package:cool_game/domain/core/extensions/vector2_extensions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/core/mixins/screen_boundary_checker.dart';
-import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
+import 'package:cool_game/presentation/animations/sprite_animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

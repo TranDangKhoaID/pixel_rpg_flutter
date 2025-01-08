@@ -14,10 +14,12 @@ import 'package:cool_game/domain/enitities/objects/chest.dart';
 import 'package:cool_game/domain/enitities/objects/plant.dart';
 import 'package:cool_game/domain/enitities/objects/world_object.dart';
 import 'package:cool_game/domain/enitities/players/dwarf_warrior.dart';
-import 'package:cool_game/presentation/game/backgrounds/parallax_background.dart';
-import 'package:cool_game/presentation/game/overlays/game_over_overlay.dart';
-import 'package:cool_game/presentation/game/overlays/game_won_overlay.dart';
-import 'package:cool_game/presentation/game/overlays/iventory_overlay.dart';
+import 'package:cool_game/presentation/backgrounds/parallax_background.dart';
+import 'package:cool_game/presentation/overlays/audio_setting_overlay.dart';
+import 'package:cool_game/presentation/overlays/audio_settings_button_overlay.dart';
+import 'package:cool_game/presentation/overlays/game_over_overlay.dart';
+import 'package:cool_game/presentation/overlays/game_won_overlay.dart';
+import 'package:cool_game/presentation/overlays/iventory_overlay.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -134,6 +136,16 @@ class _MyGameState extends State<MyGame> {
         )
       ],
       overlayBuilderMap: {
+        Overlays.audioSettings.name: (context, game) => AudioSettingsOverlay(
+              onClose: () {
+                game.resumeEngine();
+                game.overlays.remove(Overlays.audioSettings.name);
+              },
+            ),
+        Overlays.audioSettingsButton.name: (context, game) =>
+            AudioSettingsButtonOverlay(
+              game: game,
+            ),
         Overlays.gameOver.name: (context, game) => GameOverOverlay(
               onReset: _onReset,
             ),

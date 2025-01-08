@@ -17,7 +17,7 @@ import 'package:cool_game/domain/enitities/items/gem.dart';
 import 'package:cool_game/domain/enitities/items/item.dart';
 import 'package:cool_game/domain/enitities/items/potion.dart';
 import 'package:cool_game/domain/enitities/objects/chest.dart';
-import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
+import 'package:cool_game/presentation/animations/sprite_animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
