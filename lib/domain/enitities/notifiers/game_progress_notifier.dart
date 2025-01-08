@@ -7,13 +7,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart' as riverpod;
 class GameProgressNotifier extends riverpod.Notifier<GameProgress> {
   @override
   GameProgress build() {
-    return GameProgress.start;
+    return GameProgress.menu;
   }
 
   void updateProgress(GameProgress progress) => state = progress;
 
   List<Say> getAlchemistDialog() {
     switch (state) {
+      case GameProgress.menu:
+        return [];
       case GameProgress.start:
         return [
           Say(
@@ -95,6 +97,8 @@ class GameProgressNotifier extends riverpod.Notifier<GameProgress> {
 
   List<Say> getBlacksmithDialog() {
     switch (state) {
+      case GameProgress.menu:
+        return [];
       case GameProgress.start:
         return [
           Say(

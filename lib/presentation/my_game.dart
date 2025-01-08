@@ -20,6 +20,7 @@ import 'package:cool_game/presentation/overlays/audio_settings_button_overlay.da
 import 'package:cool_game/presentation/overlays/game_over_overlay.dart';
 import 'package:cool_game/presentation/overlays/game_won_overlay.dart';
 import 'package:cool_game/presentation/overlays/iventory_overlay.dart';
+import 'package:cool_game/presentation/overlays/start_overlay.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -135,8 +136,19 @@ class _MyGameState extends State<MyGame> {
           ],
         )
       ],
-      initialActiveOverlays: [Overlays.audioSettings.name],
+      initialActiveOverlays: [Overlays.audioSettingsButton.name],
       overlayBuilderMap: {
+        Overlays.start.name: (context, game) => StartOverlay(
+              onStart: () {
+                game.resumeEngine();
+                game.overlays.remove(Overlays.start.name);
+                widget.ref
+                    .read(Providers.gameProgressProvider.notifier)
+                    .updateProgress(
+                      GameProgress.start,
+                    );
+              },
+            ),
         Overlays.audioSettings.name: (context, game) => AudioSettingsOverlay(
               onClose: () {
                 game.resumeEngine();
@@ -229,6 +241,10 @@ class _MyGameState extends State<MyGame> {
 
   void _onReady(BonfireGameInterface i) {
     debugPrint('My game is ready');
+    i.pauseEngine();
+    if (widget.ref.read(Providers.gameProgressProvider) == GameProgress.menu) {
+      i.overlays.add(Overlays.start.name);
+    }
     widget.ref
         .read(Providers.audioSettingsProvider.notifier)
         .initializeMusic(Globals.audio.backgroundMusic);

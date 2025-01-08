@@ -166,6 +166,8 @@ class DwarfWarrior extends PlatformPlayer
       conversation,
       onFinish: () {
         switch (ref.read(Providers.gameProgressProvider)) {
+          case GameProgress.menu:
+            break;
           case GameProgress.start:
             ref.read(Providers.gameProgressProvider.notifier).updateProgress(
                   GameProgress.searching,
@@ -202,6 +204,8 @@ class DwarfWarrior extends PlatformPlayer
       conversation,
       onFinish: () {
         switch (ref.read(Providers.gameProgressProvider)) {
+          case GameProgress.menu:
+            break;
           case GameProgress.start:
             break;
           case GameProgress.searching:
