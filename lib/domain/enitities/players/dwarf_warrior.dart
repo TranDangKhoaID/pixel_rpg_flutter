@@ -4,6 +4,7 @@ import 'package:cool_game/domain/core/enums/joystick_actions.dart';
 import 'package:cool_game/domain/core/enums/overlays.dart';
 import 'package:cool_game/domain/core/enums/platform_animations_other.dart';
 import 'package:cool_game/domain/core/extensions/direction_animation_extensions.dart';
+import 'package:cool_game/domain/core/extensions/game_component_extentions.dart';
 import 'package:cool_game/domain/core/extensions/vector2_extensions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/core/mixins/screen_boundary_checker.dart';
@@ -110,7 +111,13 @@ class DwarfWarrior extends PlatformPlayer
     if (_canAttack) {
       playOnceOther(
         other: PlatformAnimationsOther.attackOne,
-        onStart: () => _canAttack = false,
+        onStart: () {
+          _canAttack = false;
+          playSoundEffect(
+            Globals.audio.dwarfWarriorAttack,
+            ref,
+          );
+        },
         onFinish: () => _canAttack = true,
       );
 
@@ -129,6 +136,10 @@ class DwarfWarrior extends PlatformPlayer
   ) {
     if (damage < life) {
       playOnceOther(
+        onStart: () => playSoundEffect(
+          Globals.audio.dwarfWarriorHurt,
+          ref,
+        ),
         other: PlatformAnimationsOther.hurt,
       );
     }
@@ -208,6 +219,7 @@ class DwarfWarrior extends PlatformPlayer
             break;
           case GameProgress.elixerCollected:
             gameRef.overlays.add(Overlays.gameWon.name);
+            playSoundEffect(Globals.audio.gameWon, ref);
             break;
         }
       },
@@ -231,6 +243,10 @@ class DwarfWarrior extends PlatformPlayer
   @override
   void onDie() {
     playOnceOther(
+      onStart: () {
+        playSoundEffect(Globals.audio.dwarfWarriorDie, ref);
+        playSoundEffect(Globals.audio.gameOver, ref);
+      },
       other: PlatformAnimationsOther.death,
       onFinish: () {
         removeFromParent();
@@ -283,6 +299,7 @@ class DwarfWarrior extends PlatformPlayer
 
   void _receiveItem(Item item) {
     ref.read(Providers.inventoryProvider.notifier).addItem(item);
+    playSoundEffect(Globals.audio.collectItem, ref);
     ModalService.showToast(
       title: '${item.name} added to inventory',
       type: ToastificationType.success,

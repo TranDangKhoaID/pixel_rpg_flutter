@@ -1,5 +1,6 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/data/services/modal_service.dart';
+import 'package:cool_game/domain/core/extensions/game_component_extentions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/presentation/game/overlays/overlay_container.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:cool_game/domain/core/providers.dart';
 import 'package:toastification/toastification.dart';
 
 class InventoryOverlay extends ConsumerWidget {
+  static const _crossAxisCountMultiplier = 216;
   final Player? player;
   final void Function() onClose;
 
@@ -63,29 +65,29 @@ class InventoryOverlay extends ConsumerWidget {
 
                         inventoryNotifier.removeItem(item.id);
 
+                        final icon = Image.asset(
+                          'assets/images/${item.spritePath}',
+                          width: Globals.tileSize,
+                          height: Globals.tileSize,
+                        );
+
                         switch (item.id) {
                           case 'potion':
                             ModalService.showToast(
                               title: '25 HP Replenished',
                               type: ToastificationType.success,
-                              icon: Image.asset(
-                                'assets/images/${item.spritePath}',
-                                width: Globals.tileSize,
-                                height: Globals.tileSize,
-                              ),
+                              icon: icon,
                             );
+                            player!.playSoundEffect(Globals.audio.potion, ref);
                             player!.addLife(25);
                             break;
                           case 'gem':
                             ModalService.showToast(
                               title: 'All HP Replenished',
                               type: ToastificationType.success,
-                              icon: Image.asset(
-                                'assets/images/${item.spritePath}',
-                                width: Globals.tileSize,
-                                height: Globals.tileSize,
-                              ),
+                              icon: icon,
                             );
+                            player!.playSoundEffect(Globals.audio.gem, ref);
                             player!.addLife(100);
                             break;
                         }

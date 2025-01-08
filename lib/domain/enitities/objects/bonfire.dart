@@ -1,17 +1,21 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/domain/core/enums/platform_animations_other.dart';
 import 'package:cool_game/domain/core/extensions/direction_animation_extensions.dart';
+import 'package:cool_game/domain/core/extensions/game_component_extentions.dart';
 import 'package:cool_game/domain/core/extensions/vector2_extensions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/enitities/players/dwarf_warrior.dart';
 import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Bonfire extends GameDecoration with Sensor<DwarfWarrior> {
   static const _positionBuffer = 16.0;
   static const _damage = 5.0;
 
-  Bonfire({required Vector2 position})
+  final WidgetRef ref;
+
+  Bonfire(this.ref, {required Vector2 position})
       : super.withAnimation(
           animation: SpriteAnimations.bonfire.idle,
           size: Vector2(
@@ -42,6 +46,8 @@ class Bonfire extends GameDecoration with Sensor<DwarfWarrior> {
         fontWeight: FontWeight.bold,
       ),
     );
+
+    component.playSoundEffect(Globals.audio.flame, ref);
 
     component.playOnceOther(
       other: PlatformAnimationsOther.hurt,

@@ -8,12 +8,16 @@ import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/core/mixins/screen_boundary_checker.dart';
 import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Lizardman extends PlatformEnemy
     with HandleForces, ScreenBoundaryChecker, UseLifeBar {
   static const _size = Globals.tileSize * 1.5;
 
-  Lizardman({
+  final WidgetRef ref;
+
+  Lizardman(
+    this.ref, {
     required super.position,
   }) : super(
           life: 50,
@@ -53,6 +57,10 @@ class Lizardman extends PlatformEnemy
             damage: 5,
             size: size,
             execute: () => playOnceOther(
+              onStart: () => playSoundEffect(
+                Globals.audio.lizardManAttack,
+                ref,
+              ),
               other: PlatformAnimationsOther.attackOne,
             ),
           );
@@ -80,7 +88,13 @@ class Lizardman extends PlatformEnemy
   ) {
     if (canReceiveDamage(gameRef.player!)) {
       if (damage < life) {
-        playOnceOther(other: PlatformAnimationsOther.hurt);
+        playOnceOther(
+          onStart: () => playSoundEffect(
+            Globals.audio.lizardManHurt,
+            ref,
+          ),
+          other: PlatformAnimationsOther.hurt,
+        );
       }
       super.onReceiveDamage(attacker, damage, identify);
     }
@@ -89,6 +103,10 @@ class Lizardman extends PlatformEnemy
   @override
   void onDie() {
     playOnceOther(
+      onStart: () => playSoundEffect(
+        Globals.audio.lizardManDie,
+        ref,
+      ),
       other: PlatformAnimationsOther.death,
       onFinish: () => dropItem(),
     );

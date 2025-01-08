@@ -4,13 +4,15 @@ import 'package:cool_game/domain/core/extensions/vector2_extensions.dart';
 import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Chest extends GameDecoration with Vision {
   static const _positionBuffer = 16.0;
   bool _observedPlayer = false;
   bool isOpen = false;
+  final WidgetRef ref;
 
-  Chest({required super.position})
+  Chest(this.ref, {required super.position})
       : super.withAnimation(
           animation: SpriteAnimations.chest.closed,
           size: Vector2(
@@ -56,6 +58,8 @@ class Chest extends GameDecoration with Vision {
   void openChest() async {
     if (_observedPlayer) {
       isOpen = true;
+
+      playSoundEffect(Globals.audio.chestOpening, ref);
 
       setAnimation(
         await SpriteAnimations.chest.opening,

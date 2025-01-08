@@ -10,12 +10,16 @@ import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/core/mixins/screen_boundary_checker.dart';
 import 'package:cool_game/presentation/game/animations/sprite_animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Minotaur extends PlatformEnemy
     with HandleForces, ScreenBoundaryChecker, UseLifeBar {
   static const _size = Globals.tileSize * 1.5;
 
-  Minotaur({
+  final WidgetRef ref;
+
+  Minotaur(
+    this.ref, {
     required super.position,
   }) : super(
           life: 100,
@@ -60,6 +64,10 @@ class Minotaur extends PlatformEnemy
             damage: 10,
             size: size,
             execute: () => playOnceOther(
+              onStart: () => playSoundEffect(
+                Globals.audio.minotaurAttack,
+                ref,
+              ),
               other: Random().nextBool()
                   ? PlatformAnimationsOther.attackOne
                   : PlatformAnimationsOther.attackTwo,
@@ -85,6 +93,10 @@ class Minotaur extends PlatformEnemy
   @override
   void onDie() {
     playOnceOther(
+      onStart: () => playSoundEffect(
+        Globals.audio.minotaurDie,
+        ref,
+      ),
       other: PlatformAnimationsOther.death,
       onFinish: () => dropItem(),
     );
@@ -100,6 +112,10 @@ class Minotaur extends PlatformEnemy
     if (canReceiveDamage(gameRef.player!)) {
       if (damage < life) {
         playOnceOther(
+          onStart: () => playSoundEffect(
+            Globals.audio.minotaurHurt,
+            ref,
+          ),
           other: PlatformAnimationsOther.hurt,
         );
       }

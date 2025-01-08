@@ -32,6 +32,7 @@ class MyGame extends StatefulWidget {
 }
 
 class _MyGameState extends State<MyGame> {
+  static const _mapName = 'map.json';
   static const _buttonPadding = 32.0;
   static const _joystickSize = 100.0;
   static const _joystickPadding = EdgeInsets.only(
@@ -157,8 +158,41 @@ class _MyGameState extends State<MyGame> {
       background: ParallaxBackground(),
       onReady: _onReady,
       map: WorldMapBySpritefusion(
-        WorldMapReader.fromAsset(Globals.map.name),
-        objectsBuilder: Globals.map.objectsBuilder,
+        WorldMapReader.fromAsset(_mapName),
+        objectsBuilder: {
+          'Alchemist': (properties) => Alchemist(
+                position: properties,
+              ),
+          'Blacksmith': (properties) => Blacksmith(
+                position: properties,
+              ),
+          'Bonfire': (properties) => Bonfire(
+                widget.ref,
+                position: properties,
+              ),
+          'Chest': (properties) => Chest(
+                widget.ref,
+                position: properties,
+              ),
+          'Headless Horseman': (properties) => HeadlessHorseman(
+                widget.ref,
+                position: properties,
+              ),
+          'Lizardman': (properties) => Lizardman(
+                widget.ref,
+                position: properties,
+              ),
+          'Minotaur': (properties) => Minotaur(
+                widget.ref,
+                position: properties,
+              ),
+          'Plant': (properties) => Plant(
+                position: properties,
+              ),
+          'World Object': (properties) => WorldObject(
+                position: properties,
+              ),
+        },
       ),
     );
   }
