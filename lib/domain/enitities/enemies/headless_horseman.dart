@@ -46,6 +46,8 @@ class HeadlessHorseman extends PlatformEnemy
 
   @override
   void update(double dt) {
+    if (dt > Globals.deltaThreshold) return;
+    if (gameRef.sceneBuilderStatus.isRunning) return;
     checkBoundaries();
 
     seeAndMoveToPlayer(

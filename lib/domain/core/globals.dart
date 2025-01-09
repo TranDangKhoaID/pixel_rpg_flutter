@@ -13,6 +13,7 @@ class Globals {
 
   static const spriteStepTime = 0.1;
   static const tileSize = 32.0;
+  static const deltaThreshold = 0.05;
 }
 
 class _Forces {
