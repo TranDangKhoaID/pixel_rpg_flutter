@@ -2,11 +2,11 @@ import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/domain/core/enums/game_progress.dart';
 import 'package:cool_game/domain/core/enums/overlays.dart';
 import 'package:cool_game/domain/core/providers.dart';
+import 'package:cool_game/domain/core/enums/joystick_actions.dart';
+import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/entities/enemies/headless_horseman.dart';
 import 'package:cool_game/domain/entities/enemies/lizardman.dart';
 import 'package:cool_game/domain/entities/enemies/minotaur.dart';
-import 'package:cool_game/domain/core/enums/joystick_actions.dart';
-import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/entities/npcs/alchemist.dart';
 import 'package:cool_game/domain/entities/npcs/blacksmith.dart';
 import 'package:cool_game/domain/entities/objects/bonfire.dart';
@@ -28,6 +28,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MyGame extends StatefulWidget {
   final WidgetRef ref;
+
   const MyGame(this.ref, {super.key});
 
   @override
@@ -36,21 +37,24 @@ class MyGame extends StatefulWidget {
 
 class _MyGameState extends State<MyGame> {
   static const _mapName = 'map.json';
-  static const _buttonPadding = 32.0;
+
+  static const _buttonPadding = 64.0;
+
   static const _joystickSize = 100.0;
+
   static const _joystickPadding = EdgeInsets.only(
     left: _buttonPadding,
     bottom: _buttonPadding,
   );
 
-  static const _marginButtonA = EdgeInsets.only(
-    bottom: _buttonPadding,
-    right: _buttonPadding * 2,
-  );
-
   static const _marginButtonB = EdgeInsets.only(
     bottom: _buttonPadding * 2,
     right: _buttonPadding,
+  );
+
+  static const _marginButtonA = EdgeInsets.only(
+    bottom: _buttonPadding,
+    right: _buttonPadding * 2,
   );
 
   static const _marginButtonX = EdgeInsets.only(
@@ -77,167 +81,167 @@ class _MyGameState extends State<MyGame> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BonfireWidget(
-      key: _gameKey,
-      debugMode: false,
-      showCollisionArea: false,
-      playerControllers: [
-        Keyboard(
-          config: KeyboardConfig(
-            acceptedKeys: [
-              LogicalKeyboardKey.space,
-              LogicalKeyboardKey.keyA,
-              LogicalKeyboardKey.keyB,
-              LogicalKeyboardKey.keyX,
-              LogicalKeyboardKey.keyY,
-              LogicalKeyboardKey.keyP,
-            ],
-            directionalKeys: [
-              KeyboardDirectionalKeys.wasd(),
-              KeyboardDirectionalKeys.arrows(),
+  Widget build(BuildContext context) => BonfireWidget(
+        key: _gameKey,
+        debugMode: false,
+        showCollisionArea: false,
+        playerControllers: [
+          Keyboard(
+            config: KeyboardConfig(
+              acceptedKeys: [
+                LogicalKeyboardKey.space,
+                LogicalKeyboardKey.keyA,
+                LogicalKeyboardKey.keyB,
+                LogicalKeyboardKey.keyX,
+                LogicalKeyboardKey.keyY,
+                LogicalKeyboardKey.keyP,
+              ],
+              directionalKeys: [
+                KeyboardDirectionalKeys.arrows(),
+              ],
+            ),
+          ),
+          Joystick(
+            directional: JoystickDirectional(
+              spriteKnobDirectional: Sprite.load(
+                Globals.input.leftJoystick,
+              ),
+              size: _joystickSize,
+              margin: _joystickPadding,
+            ),
+            actions: [
+              JoystickAction(
+                actionId: JoystickActions.buttonB,
+                sprite: Sprite.load(Globals.input.bUnpressed),
+                spritePressed: Sprite.load(Globals.input.bPressed),
+                margin: _marginButtonB,
+              ),
+              JoystickAction(
+                actionId: JoystickActions.buttonA,
+                sprite: Sprite.load(Globals.input.aUnpressed),
+                spritePressed: Sprite.load(Globals.input.aPressed),
+                margin: _marginButtonA,
+              ),
+              JoystickAction(
+                actionId: JoystickActions.buttonX,
+                sprite: Sprite.load(Globals.input.xUnpressed),
+                spritePressed: Sprite.load(Globals.input.xPressed),
+                margin: _marginButtonX,
+              ),
+              JoystickAction(
+                actionId: JoystickActions.buttonY,
+                sprite: Sprite.load(Globals.input.yUnpressed),
+                spritePressed: Sprite.load(Globals.input.yPressed),
+                margin: _marginButtonY,
+              ),
             ],
           ),
-        ),
-        Joystick(
-          directional: JoystickDirectional(
-            spriteKnobDirectional: Sprite.load(
-              Globals.input.leftJoystick,
-            ),
-            size: _joystickSize,
-            margin: _joystickPadding,
-          ),
-          actions: [
-            JoystickAction(
-              actionId: JoystickActions.buttonB,
-              sprite: Sprite.load(Globals.input.bUnpressed),
-              spritePressed: Sprite.load(Globals.input.bPressed),
-              margin: _marginButtonB,
-            ),
-            JoystickAction(
-              actionId: JoystickActions.buttonA,
-              sprite: Sprite.load(Globals.input.aUnpressed),
-              spritePressed: Sprite.load(Globals.input.aPressed),
-              margin: _marginButtonA,
-            ),
-            JoystickAction(
-              actionId: JoystickActions.buttonX,
-              sprite: Sprite.load(Globals.input.xUnpressed),
-              spritePressed: Sprite.load(Globals.input.xPressed),
-              margin: _marginButtonX,
-            ),
-            JoystickAction(
-              actionId: JoystickActions.buttonY,
-              sprite: Sprite.load(Globals.input.yUnpressed),
-              spritePressed: Sprite.load(Globals.input.yPressed),
-              margin: _marginButtonY,
-            ),
-          ],
-        )
-      ],
-      initialActiveOverlays: [Overlays.audioSettingsButton.name],
-      overlayBuilderMap: {
-        Overlays.start.name: (context, game) => StartOverlay(
-              onStart: () {
-                game.resumeEngine();
-                game.overlays.remove(Overlays.start.name);
-                widget.ref
-                    .read(Providers.gameProgressProvider.notifier)
-                    .updateProgress(
-                      GameProgress.start,
-                    );
-              },
-            ),
-        Overlays.audioSettings.name: (context, game) => AudioSettingsOverlay(
-              onClose: () {
-                game.resumeEngine();
-                game.overlays.remove(Overlays.audioSettings.name);
-              },
-            ),
-        Overlays.audioSettingsButton.name: (context, game) =>
-            AudioSettingsButtonOverlay(
-              game: game,
-            ),
-        Overlays.gameOver.name: (context, game) => GameOverOverlay(
-              onReset: _onReset,
-            ),
-        Overlays.gameWon.name: (context, game) => GameWonOverlay(
-              onReset: _onReset,
-            ),
-        Overlays.inventory.name: (context, game) => InventoryOverlay(
-              player: game.player,
-              onClose: () {
-                game.resumeEngine();
-                game.overlays.remove(Overlays.inventory.name);
-              },
-            )
-      },
-      cameraConfig: _cameraConfig,
-      lightingColorGame: Colors.white.withOpacity(0.01),
-      player: DwarfWarrior(
-        widget.ref,
-        position: Vector2.all(20),
-      ),
-      background: ParallaxBackground(),
-      onReady: _onReady,
-      map: WorldMapBySpritefusion(
-        WorldMapReader.fromAsset(_mapName),
-        objectsBuilder: {
-          'Alchemist': (properties) => Alchemist(
-                position: properties,
+        ],
+        initialActiveOverlays: [Overlays.audioSettingsButton.name],
+        overlayBuilderMap: {
+          Overlays.start.name: (context, game) => StartOverlay(
+                onStart: () {
+                  game.resumeEngine();
+                  game.overlays.remove(Overlays.start.name);
+                  widget.ref
+                      .read(Providers.gameProgressProvider.notifier)
+                      .updateProgress(
+                        GameProgress.start,
+                      );
+                },
               ),
-          'Blacksmith': (properties) => Blacksmith(
-                position: properties,
+          Overlays.audioSettings.name: (context, game) => AudioSettingsOverlay(
+                onClose: () {
+                  game.resumeEngine();
+                  game.overlays.remove(Overlays.audioSettings.name);
+                },
               ),
-          'Bonfire': (properties) => Bonfire(
-                widget.ref,
-                position: properties,
+          Overlays.audioSettingsButton.name: (context, game) =>
+              AudioSettingsButtonOverlay(
+                game: game,
               ),
-          'Chest': (properties) => Chest(
-                widget.ref,
-                position: properties,
+          Overlays.gameOver.name: (context, game) => GameOverOverlay(
+                onReset: _onReset,
               ),
-          'Headless Horseman': (properties) => HeadlessHorseman(
-                widget.ref,
-                position: properties,
+          Overlays.gameWon.name: (context, game) => GameWonOverlay(
+                onReset: _onReset,
               ),
-          'Lizardman': (properties) => Lizardman(
-                widget.ref,
-                position: properties,
-              ),
-          'Minotaur': (properties) => Minotaur(
-                widget.ref,
-                position: properties,
-              ),
-          'Plant': (properties) => Plant(
-                position: properties,
-              ),
-          'World Object': (properties) => WorldObject(
-                position: properties,
-              ),
+          Overlays.inventory.name: (context, game) => InventoryOverlay(
+                player: game.player,
+                onClose: () {
+                  game.resumeEngine();
+                  game.overlays.remove(Overlays.inventory.name);
+                },
+              )
         },
-      ),
-    );
-  }
+        cameraConfig: _cameraConfig,
+        player: DwarfWarrior(
+          widget.ref,
+          position: Vector2.all(20),
+        ),
+        background: ParallaxBackground(),
+        lightingColorGame: Colors.white.withOpacity(0.01),
+        onReady: _onReady,
+        map: WorldMapBySpritefusion(
+          WorldMapReader.fromAsset(_mapName),
+          objectsBuilder: {
+            'Alchemist': (properties) => Alchemist(
+                  position: properties,
+                ),
+            'Blacksmith': (properties) => Blacksmith(
+                  position: properties,
+                ),
+            'Bonfire': (properties) => Bonfire(
+                  widget.ref,
+                  position: properties,
+                ),
+            'Chest': (properties) => Chest(
+                  widget.ref,
+                  position: properties,
+                ),
+            'Headless Horseman': (properties) => HeadlessHorseman(
+                  widget.ref,
+                  position: properties,
+                ),
+            'Lizardman': (properties) => Lizardman(
+                  widget.ref,
+                  position: properties,
+                ),
+            'Minotaur': (properties) => Minotaur(
+                  widget.ref,
+                  position: properties,
+                ),
+            'Plant': (properties) => Plant(
+                  position: properties,
+                ),
+            'World Object': (properties) => WorldObject(
+                  position: properties,
+                ),
+          },
+        ),
+      );
 
   void _onReset() {
     widget.ref.read(Providers.gameProgressProvider.notifier).updateProgress(
-          GameProgress.start,
+          GameProgress.menu,
         );
+
     widget.ref.read(Providers.inventoryProvider.notifier).resetInventory();
-    setState(() {
-      _gameKey = UniqueKey();
-    });
+
+    setState(() => _gameKey = UniqueKey());
   }
 
   void _onReady(BonfireGameInterface i) {
-    debugPrint('My game is ready');
+    debugPrint('"My Cool Game" is now ready. 👍🏾');
+
     i.pauseEngine();
+
     if (widget.ref.read(Providers.gameProgressProvider) == GameProgress.menu) {
       i.overlays.add(Overlays.start.name);
     }
-    widget.ref
-        .read(Providers.audioSettingsProvider.notifier)
-        .initializeMusic(Globals.audio.backgroundMusic);
+
+    widget.ref.read(Providers.audioSettingsProvider.notifier).initializeMusic(
+          Globals.audio.backgroundMusic,
+        );
   }
 }

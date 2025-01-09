@@ -32,7 +32,7 @@ class StartOverlay extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const AdventureStyleText('My Cool Game'),
+                  const AdventureStyleText('My RPG Pixel Game'),
                   const Gap(32),
                   ElevatedButton(
                     onPressed: onStart,

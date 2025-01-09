@@ -1,7 +1,7 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/domain/core/enums/overlays.dart';
 import 'package:cool_game/domain/core/providers.dart';
-import 'package:cool_game/domain/entities/notifiers/game_progress_notifier.dart';
+import 'package:cool_game/domain/notifiers/game_progress_notifier.dart';
 import 'package:cool_game/presentation/my_game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

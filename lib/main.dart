@@ -27,6 +27,7 @@ final audios = [
   Globals.audio.minotaurHurt,
   Globals.audio.potion,
 ];
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlameAudio.audioCache.loadAll(audios);
@@ -36,29 +37,28 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return ProviderScope(
-      child: ToastificationWrapper(
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'My RPG Game',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
+  Widget build(BuildContext context) => ProviderScope(
+        child: ToastificationWrapper(
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'My RPG Pixel Game',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.deepPurple,
+              ),
+              useMaterial3: true,
+            ),
+            home: const GameScreen(),
           ),
-          home: const GameScreen(),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class GameScreen extends ConsumerWidget {
   const GameScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return MyGame(ref);
-  }
+  Widget build(BuildContext context, WidgetRef ref) => MyGame(ref);
 }

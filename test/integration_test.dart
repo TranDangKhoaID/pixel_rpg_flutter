@@ -1,6 +1,6 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/domain/core/providers.dart';
-import 'package:cool_game/domain/entities/notifiers/game_progress_notifier.dart';
+import 'package:cool_game/domain/notifiers/game_progress_notifier.dart';
 import 'package:cool_game/domain/entities/players/dwarf_warrior.dart';
 import 'package:cool_game/presentation/my_game.dart';
 import 'package:cool_game/presentation/overlays/game_over_overlay.dart';
