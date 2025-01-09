@@ -10,24 +10,23 @@ import 'package:cool_game/domain/core/globals.dart';
 import 'package:cool_game/domain/core/mixins/screen_boundary_checker.dart';
 import 'package:cool_game/data/services/modal_service.dart';
 import 'package:cool_game/domain/core/providers.dart';
-import 'package:cool_game/domain/enitities/items/charcoal.dart';
-import 'package:cool_game/domain/enitities/items/coin.dart';
-import 'package:cool_game/domain/enitities/items/elixer.dart';
-import 'package:cool_game/domain/enitities/items/gem.dart';
-import 'package:cool_game/domain/enitities/items/item.dart';
-import 'package:cool_game/domain/enitities/items/potion.dart';
-import 'package:cool_game/domain/enitities/objects/chest.dart';
+import 'package:cool_game/domain/entities/items/charcoal.dart';
+import 'package:cool_game/domain/entities/items/coin.dart';
+import 'package:cool_game/domain/entities/items/elixer.dart';
+import 'package:cool_game/domain/entities/items/gem.dart';
+import 'package:cool_game/domain/entities/items/item.dart';
+import 'package:cool_game/domain/entities/items/potion.dart';
+import 'package:cool_game/domain/entities/objects/chest.dart';
 import 'package:cool_game/presentation/animations/sprite_animations.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toastification/toastification.dart';
 
 class DwarfWarrior extends PlatformPlayer
-    with HandleForces, MouseEventListener, ScreenBoundaryChecker, UseLifeBar {
+    with HandleForces, ScreenBoundaryChecker, UseLifeBar {
   static const _size = Globals.tileSize * 1.5;
-
-  final void Function() toggleDevMode;
 
   bool _canAttack = true;
 
@@ -42,7 +41,6 @@ class DwarfWarrior extends PlatformPlayer
   DwarfWarrior(
     this.ref, {
     required super.position,
-    required this.toggleDevMode,
   }) : super(
           speed: 100,
           countJumps: 2,
@@ -244,22 +242,31 @@ class DwarfWarrior extends PlatformPlayer
   }
 
   @override
-  void onMouseTap(MouseButton button) => toggleDevMode();
-
-  @override
   void onDie() {
     playOnceOther(
+      other: PlatformAnimationsOther.death,
       onStart: () {
-        playSoundEffect(Globals.audio.dwarfWarriorDie, ref);
+        playSoundEffect(Globals.audio.dwarfWarriorHurt, ref);
         playSoundEffect(Globals.audio.gameOver, ref);
       },
-      other: PlatformAnimationsOther.death,
       onFinish: () {
         removeFromParent();
         gameRef.overlays.add(Overlays.gameOver.name);
       },
     );
     super.onDie();
+
+    if (kDebugMode) {
+      gameRef.overlays.add(Overlays.gameOver.name);
+    } else {
+      playOnceOther(
+        other: PlatformAnimationsOther.death,
+        onFinish: () {
+          removeFromParent();
+          gameRef.overlays.add(Overlays.gameOver.name);
+        },
+      );
+    }
   }
 
   @override

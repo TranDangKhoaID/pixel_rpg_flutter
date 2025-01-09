@@ -1,4 +1,4 @@
-import 'package:cool_game/domain/enitities/items/item.dart';
+import 'package:cool_game/domain/entities/items/item.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class InventoryNotifier extends Notifier<List<Item>> {

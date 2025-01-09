@@ -6,17 +6,23 @@ import 'package:lottie/lottie.dart';
 
 class GameOverOverlay extends StatelessWidget {
   final void Function() onReset;
-  const GameOverOverlay({super.key, required this.onReset});
+
+  const GameOverOverlay({
+    required this.onReset,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+
     return OverlayContainer(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Lottie.asset(
             Globals.lottie.gameOver,
-            fit: BoxFit.cover,
+            height: height * 0.5,
           ),
           const Gap(32),
           ElevatedButton(

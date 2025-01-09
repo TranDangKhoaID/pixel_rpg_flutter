@@ -1,5 +1,5 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:cool_game/domain/enitities/items/item.dart';
+import 'package:cool_game/domain/entities/items/item.dart';
 import 'package:cool_game/presentation/animations/sprite_animations.dart';
 
 class Gem extends Item {

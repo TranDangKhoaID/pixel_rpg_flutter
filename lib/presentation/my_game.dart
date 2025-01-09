@@ -2,18 +2,18 @@ import 'package:bonfire/bonfire.dart';
 import 'package:cool_game/domain/core/enums/game_progress.dart';
 import 'package:cool_game/domain/core/enums/overlays.dart';
 import 'package:cool_game/domain/core/providers.dart';
-import 'package:cool_game/domain/enitities/enemies/headless_horseman.dart';
-import 'package:cool_game/domain/enitities/enemies/lizardman.dart';
-import 'package:cool_game/domain/enitities/enemies/minotaur.dart';
+import 'package:cool_game/domain/entities/enemies/headless_horseman.dart';
+import 'package:cool_game/domain/entities/enemies/lizardman.dart';
+import 'package:cool_game/domain/entities/enemies/minotaur.dart';
 import 'package:cool_game/domain/core/enums/joystick_actions.dart';
 import 'package:cool_game/domain/core/globals.dart';
-import 'package:cool_game/domain/enitities/npcs/alchemist.dart';
-import 'package:cool_game/domain/enitities/npcs/blacksmith.dart';
-import 'package:cool_game/domain/enitities/objects/bonfire.dart';
-import 'package:cool_game/domain/enitities/objects/chest.dart';
-import 'package:cool_game/domain/enitities/objects/plant.dart';
-import 'package:cool_game/domain/enitities/objects/world_object.dart';
-import 'package:cool_game/domain/enitities/players/dwarf_warrior.dart';
+import 'package:cool_game/domain/entities/npcs/alchemist.dart';
+import 'package:cool_game/domain/entities/npcs/blacksmith.dart';
+import 'package:cool_game/domain/entities/objects/bonfire.dart';
+import 'package:cool_game/domain/entities/objects/chest.dart';
+import 'package:cool_game/domain/entities/objects/plant.dart';
+import 'package:cool_game/domain/entities/objects/world_object.dart';
+import 'package:cool_game/domain/entities/players/dwarf_warrior.dart';
 import 'package:cool_game/presentation/backgrounds/parallax_background.dart';
 import 'package:cool_game/presentation/overlays/audio_setting_overlay.dart';
 import 'package:cool_game/presentation/overlays/audio_settings_button_overlay.dart';
@@ -68,7 +68,6 @@ class _MyGameState extends State<MyGame> {
     moveOnlyMapArea: true,
   );
 
-  bool _devMode = false;
   Key _gameKey = GlobalKey();
 
   @override
@@ -81,8 +80,8 @@ class _MyGameState extends State<MyGame> {
   Widget build(BuildContext context) {
     return BonfireWidget(
       key: _gameKey,
-      debugMode: _devMode,
-      showCollisionArea: _devMode,
+      debugMode: false,
+      showCollisionArea: false,
       playerControllers: [
         Keyboard(
           config: KeyboardConfig(
@@ -178,7 +177,6 @@ class _MyGameState extends State<MyGame> {
       player: DwarfWarrior(
         widget.ref,
         position: Vector2.all(20),
-        toggleDevMode: _toggleDevMode,
       ),
       background: ParallaxBackground(),
       onReady: _onReady,
@@ -231,13 +229,6 @@ class _MyGameState extends State<MyGame> {
       _gameKey = UniqueKey();
     });
   }
-
-  void _toggleDevMode() => setState(
-        () {
-          _devMode = !_devMode;
-          _gameKey = UniqueKey();
-        },
-      );
 
   void _onReady(BonfireGameInterface i) {
     debugPrint('My game is ready');

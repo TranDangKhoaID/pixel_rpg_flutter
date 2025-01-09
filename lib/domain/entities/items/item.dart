@@ -1,5 +1,5 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:cool_game/domain/enitities/players/dwarf_warrior.dart';
+import 'package:cool_game/domain/entities/players/dwarf_warrior.dart';
 
 class Item {
   final String id;
