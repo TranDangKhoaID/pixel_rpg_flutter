@@ -35,7 +35,7 @@ class Lizardman extends PlatformEnemy
             },
           ),
         ) {
-    addForce(Globals.forces.gravity);
+    addForce(Globals.forces.enemyGravity);
 
     setupLifeBar(
       borderRadius: BorderRadius.circular(2),

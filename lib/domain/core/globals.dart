@@ -1,4 +1,4 @@
-import 'package:bonfire/bonfire.dart';
+import 'package:bonfire/bonfire.dart' as bonfire;
 import 'package:flutter/material.dart';
 
 class Globals {
@@ -17,9 +17,14 @@ class Globals {
 }
 
 class _Forces {
-  final gravity = AccelerationForce2D(
-    id: 'gravity',
-    value: Vector2(0, 400),
+  final playerGravity = bonfire.AccelerationForce2D(
+    id: 'player_gravity',
+    value: bonfire.Vector2(0, 400),
+  );
+
+  final enemyGravity = bonfire.AccelerationForce2D(
+    id: 'enemy_gravity',
+    value: bonfire.Vector2(0, 4000),
   );
 }
 

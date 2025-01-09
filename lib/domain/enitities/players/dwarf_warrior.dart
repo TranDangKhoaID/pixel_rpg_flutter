@@ -59,7 +59,7 @@ class DwarfWarrior extends PlatformPlayer
                     SpriteAnimations.dwarfWarrior.death,
               }),
         ) {
-    addForce(Globals.forces.gravity);
+    addForce(Globals.forces.playerGravity);
 
     setupLifeBar(
       borderRadius: BorderRadius.circular(2),
